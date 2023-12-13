@@ -1,0 +1,185 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Archivos</title>
+</head>
+<body>
+<h1>SCRIP INMOBILIARIA</h1>
+
+<p>  /*==============================================================*/<br>
+    /* DBMS name:      MySQL 5.0                                    */<br>
+    /* Created on:     12/12/2023 20:24:47                          */<br>
+    /*==============================================================*/<br>
+<p>
+
+<p>
+    alter table CITA<br>
+    drop foreign key FK_CITA_ASOCIADA2_VENTA;<br><br>
+
+    alter table CITA<br>
+    drop foreign key FK_CITA_PUEDE_TEN_VENDEDOR;<br><br>
+
+    alter table CITA<br>
+    drop foreign key FK_CITA_TENER_CLIENTE;<br><br>
+
+    alter table DEPARTAMENTO<br>
+    drop foreign key FK_DEPARTAM_TIENE_EDIFICIO;<br><br>
+
+    alter table EDIFICIO<br>
+    drop foreign key FK_EDIFICIO_CARGO2_VENDEDOR;<br><br>
+
+    alter table VENDEDOR<br>
+    drop foreign key FK_VENDEDOR_CARGO_EDIFICIO;<br><br>
+
+    alter table VENTA<br>
+    drop foreign key FK_VENTA_ASOCIADA_CITA;<br><br><br>
+
+
+    alter table CITA<br>
+    drop foreign key FK_CITA_TENER_CLIENTE;<br><br>
+
+    alter table CITA<br>
+    drop foreign key FK_CITA_PUEDE_TEN_VENDEDOR;<br><br>
+
+    alter table CITA<br>
+    drop foreign key FK_CITA_ASOCIADA2_VENTA;<br><br>
+
+    drop table if exists CITA;<br><br>
+
+    drop table if exists CLIENTE;<br><br><br><br>
+
+
+    alter table DEPARTAMENTO<br>
+    drop foreign key FK_DEPARTAM_TIENE_EDIFICIO;<br><br>
+
+    drop table if exists DEPARTAMENTO;<br><br><br><br>
+
+
+    alter table EDIFICIO<br>
+    drop foreign key FK_EDIFICIO_CARGO2_VENDEDOR;<br><br>
+
+    drop table if exists EDIFICIO;<br><br><br>
+
+
+    alter table VENDEDOR<br>
+    drop foreign key FK_VENDEDOR_CARGO_EDIFICIO;<br><br>
+
+    drop table if exists VENDEDOR;<br><br><br>
+
+
+    alter table VENTA<br>
+    drop foreign key FK_VENTA_ASOCIADA_CITA;<br><br>
+
+    drop table if exists VENTA;<br><br>
+
+    /*==============================================================*/<br>
+    /* Table: CITA                                                  */<br>
+    /*==============================================================*/<br>
+    create table CITA<br>
+    (<br>
+    IDCITA               numeric(15,0) not null  comment '',<br>
+    IDCLIENTE            numeric(15,0) not null  comment '',<br>
+    IDVENDEDOR           numeric(15,0) not null  comment '',<br>
+    IDVENTA              numeric(15,0) not null  comment '',<br>
+    ID_VENDEDOR          numeric(15,0)  comment '',<br>
+    ID_CLIENTE           numeric(15,0)  comment '',<br>
+    ID_DEPARTAMENTO      numeric(15,0)  comment '',<br>
+    FECHAHORA            datetime  comment '',<br>
+    primary key (IDCITA)<br>
+    );<br>
+
+    /*==============================================================*/<br>
+    /* Table: CLIENTE                                               */<br>
+    /*==============================================================*/<br>
+    create table CLIENTE<br>
+    (<br>
+    IDCLIENTE            numeric(15,0) not null  comment '',<br>
+    DATOSPERSONALES      varchar(50)  comment '',<br>
+    REQUERIMIENTOS       varchar(30)  comment '',<br>
+    primary key (IDCLIENTE)<br>
+    );<br>
+
+    /*==============================================================*/<br>
+    /* Table: DEPARTAMENTO                                          */<br>
+    /*==============================================================*/<br>
+    create table DEPARTAMENTO<br>
+    (<br>
+    IDDEPARTAMENTO       numeric(15,0) not null  comment '',<br>
+    IDEDIFICIO           numeric(15,0) not null  comment '',<br>
+    IDEDIFICIOPERTENECE  numeric(15,0)  comment '',<br>
+    NUMEROPISO           numeric(10,0)  comment '',<br>
+    UBICACIONAREASO_PRI  varchar(15)  comment '',<br>
+    SUPERFICIE           varchar(10)  comment '',<br>
+    DETALLESHABITA       varchar(100)  comment '',<br>
+    PRECIO               decimal(8,2)  comment '',<br>
+    ESTADOVENTA          varchar(10)  comment '',<br>
+    primary key (IDDEPARTAMENTO)<br>
+    );<br><br>
+
+    /*==============================================================*/<br>
+    /* Table: EDIFICIO                                              */<br>
+    /*==============================================================*/<br>
+    create table EDIFICIO<br>
+    (<br>
+    IDEDIFICIO           numeric(15,0) not null  comment '',<br>
+    IDVENDEDOR           numeric(15,0) not null  comment '',<br>
+    ZONA                 varchar(30)  comment '',<br>
+    DIRECCION            varchar(30)  comment '',<br>
+    CARACTERISTICAS_CODIFICADAS varchar(50)  comment '',<br>
+    primary key (IDEDIFICIO)<br>
+    );<br><br>
+
+    /*==============================================================*/<br>
+    /* Table: VENDEDOR                                              */<br>
+    /*==============================================================*/<br>
+    create table VENDEDOR<br>
+    (<br>
+    IDVENDEDOR           numeric(15,0) not null  comment '',<br>
+    IDEDIFICIO           numeric(15,0) not null  comment '',<br>
+    NOMBREVENDEDOR       varchar(30)  comment '',<br>
+    EDIFICIOCARGO        varchar(20)  comment '',<br>
+    primary key (IDVENDEDOR)<br>
+    );<br><br>
+
+    /*==============================================================*/<br>
+    /* Table: VENTA                                                 */<br>
+    /*==============================================================*/<br>
+    create table VENTA<br>
+    (<br>
+    IDVENTA              numeric(15,0) not null  comment '',<br>
+    IDCITA               numeric(15,0) not null  comment '',<br>
+    ID_CITA_ASO          numeric(15,0)  comment '',<br>
+    FECHAVENTA           date  comment '',<br>
+    VALORPRECIOVENTA     decimal(9,2)  comment '',<br>
+    COMISIONVENDEDOR     decimal(5,2)  comment '',<br>
+    primary key (IDVENTA)<br>
+    );<br><br>
+
+    alter table CITA add constraint FK_CITA_ASOCIADA2_VENTA foreign key (IDVENTA)<br>
+    references VENTA (IDVENTA) on delete restrict on update restrict;<br><br>
+
+    alter table CITA add constraint FK_CITA_PUEDE_TEN_VENDEDOR foreign key (IDVENDEDOR)<br>
+    references VENDEDOR (IDVENDEDOR) on delete restrict on update restrict;<br><br>
+
+    alter table CITA add constraint FK_CITA_TENER_CLIENTE foreign key (IDCLIENTE)<br>
+    references CLIENTE (IDCLIENTE) on delete restrict on update restrict;<br><br>
+
+    alter table DEPARTAMENTO add constraint FK_DEPARTAM_TIENE_EDIFICIO foreign key (IDEDIFICIO)<br>
+    references EDIFICIO (IDEDIFICIO) on delete restrict on update restrict;<br><br>
+
+    alter table EDIFICIO add constraint FK_EDIFICIO_CARGO2_VENDEDOR foreign key (IDVENDEDOR)<br>
+    references VENDEDOR (IDVENDEDOR) on delete restrict on update restrict;<br><br>
+
+    alter table VENDEDOR add constraint FK_VENDEDOR_CARGO_EDIFICIO foreign key (IDEDIFICIO)<br>
+    references EDIFICIO (IDEDIFICIO) on delete restrict on update restrict;<br><br>
+
+    alter table VENTA add constraint FK_VENTA_ASOCIADA_CITA foreign key (IDCITA)<br>
+    references CITA (IDCITA) on delete restrict on update restrict;<br><br>
+</p>
+
+<div id="mensaje"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
